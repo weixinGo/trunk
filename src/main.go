@@ -11,7 +11,7 @@ func main() {
 	//beego.Run()
 	wxHelper.SetOpenId("testOpenid")
 	wxHelper.SetSecret("testSecret")
-	oUrl,_ := wxHelper.WXOauth2(false, "http://wangqiao.gaiay.net.cn/wxServer?aaa=斯蒂芬撒")
+	oUrl,_ := wxHelper.WXOauth2(false, "http://wangqiao.gaiay.net.cn/wxServer?aa")
 	fmt.Println("oUrl:", oUrl)
 }
 
