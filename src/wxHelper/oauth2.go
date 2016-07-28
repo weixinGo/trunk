@@ -25,12 +25,12 @@ type OauthToken struct{
 type WXUserInfo struct{
 	Openid string
 	Nickname string
-	Sex int32
+	Sex int
 	Province string
 	City string
 	Country string
 	Headimgurl string
-	Privilege string
+	//Privilege string
 	Unionid string
 }
 /*
@@ -158,6 +158,7 @@ func paresUserInfo(response string)(*WXUserInfo, error){
 	if err != nil{
 		return nil, err
 	}
+	fmt.Println("weixin info:", response)
 	info := new(WXUserInfo)
 	dec := json.NewDecoder(strings.NewReader(response))
 	err = dec.Decode(info)
