@@ -56,7 +56,7 @@ func WXOauth2(isBase bool, redirectUrl string) (string, error){
 		scope = "snsapi_base"
 	}
 	fmt.Println("redirectUrl:",redirectUrl ,"uo.Encode():", uo.Encode())
-	oUrl := fmt.Sprintf(WX_OAUTH2, openId, uo.Encode(), scope)
+	oUrl := fmt.Sprintf(WX_OAUTH2, base_openId, uo.Encode(), scope)
 	return oUrl,nil
 }
 
@@ -92,7 +92,7 @@ func GetUserInfo(code string) (string, *WXUserInfo,error){
 返回 error	异常信息
 */
 func getToken(code string) (*OauthToken, error){
-	url := fmt.Sprintf(WX_OUTOKEN, openId, secret, code)
+	url := fmt.Sprintf(WX_OUTOKEN, base_openId, base_secret, code)
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
@@ -132,15 +132,8 @@ func parseToken(respons string) (*OauthToken, error){
 	return token, nil 
 }
 
-func checkResponse(msg string, respons string) error{
-	if strings.Index(respons, "errcode") != -1 {
-		return errors.New(fmt.Sprintf("%v，返回内容：%v", msg, respons))
-	}
-	return nil 
-}
-
 func getwxUserInfo(token string)(*WXUserInfo, error){
-	url := fmt.Sprintf(WX_USERINFO, token, openId)
+	url := fmt.Sprintf(WX_USERINFO, token, base_openId)
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
@@ -158,7 +151,6 @@ func paresUserInfo(response string)(*WXUserInfo, error){
 	if err != nil{
 		return nil, err
 	}
-	fmt.Println("weixin info:", response)
 	info := new(WXUserInfo)
 	dec := json.NewDecoder(strings.NewReader(response))
 	err = dec.Decode(info)

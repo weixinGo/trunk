@@ -4,21 +4,20 @@ import (
 
 )
 
-var openId string
-var secret string
+var base_openId string
+var base_secret string
 
 func SetOpenId(oi string){
-	openId = oi
+	base_openId = oi
 }
 
 func SetSecret(sc string){
-	secret = sc
+	base_secret = sc
 }
 
 func isInited() bool{
-	if len(openId) <1 || len(secret) < 1{
+	if len(base_openId) <1 || len(base_secret) < 1{
 		return false
 	}
 	return true
 }
-
